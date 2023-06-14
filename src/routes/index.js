@@ -53,10 +53,6 @@ export function Routes() {
                 tabBarIcon: ({ size }) => {
                     return <ButtonNew size={size} />
                 }
-
-
-            
-            
             }} />
 
             <Tab.Screen name="Inbox" component={Inbox} options={{
