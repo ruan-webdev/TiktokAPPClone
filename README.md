@@ -1,7 +1,9 @@
 # Tiktok App Clone
 
 ## Description
-![Screenshot_1686714248](https://github.com/ruan-webdev/TiktokAPPClone/assets/40373628/a3178e5d-a74d-4e8e-9c8f-7f455236219e)
+
+https://i.imgur.com/4lgk25I.mp4
+
 
 Esse é um clone da parte de home do aplicativo Tiktok, feito com React Native e Expo. O projeto foi feito com o intuito de aprender mais sobre animações utilizando a biblioteca do expo av, e também para aprender mais sobre o uso de FlatList e suas propriedades.
 
