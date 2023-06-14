@@ -1,9 +1,52 @@
-import { View, StyleSheet, Text, TouchableOpacity, StatusBar, Platform } from 'react-native'
+import { useState, useRef } from 'react'
+
+import { View, StyleSheet, Text, TouchableOpacity, StatusBar, Platform, FlatList, Dimensions } from 'react-native'
 
 import { Ionicons, MaterialIcons } from '@expo/vector-icons'
 
 
+import { FeedItem } from '../../components/FeedItem'
+
+
+const { height: heightScreen } = Dimensions.get('screen')
+
 export function Home() {
+
+
+  let feedItems = [ 
+    {
+      id: '1', 
+      video: 'https://i.imgur.com/sfHqqzc.mp4',
+      name: '@ruanzoka1',
+      description: 'Bobbyinho em call com seu amigo',
+     },
+    {
+      id: '2', 
+      video: 'https://i.imgur.com/NvBaHTt.mp4',
+      name: '@ruanzoka1',
+      description: 'Funny bird moments',
+     },
+    {
+      id: '3', 
+      video: 'https://i.imgur.com/scAidDo.mp4',
+      name: '@ruanzoka1',
+      description: 'Meme compilation with animals', 
+     }
+  ]
+
+
+  // nessa variavel, o meu useState junto ao feedItems[0] serve para que o primeiro item do meu feed seja o primeiro item do meu array
+  const [showItem, setShowItem] = useState(feedItems[0])
+
+  // nessa referencia, eu estou pegando o item que esta sendo exibido na tela e passando para a variavel showItem que por sua vez, vai ser passada para o meu componente FeedItem
+  const onViewRef = useRef(({ viewableItems }) => {
+    if (viewableItems && viewableItems.length > 0) {
+      setShowItem(feedItems[viewableItems[0].index])
+    }
+  }) 
+
+
+
   return (
     <View style={styles.container}>
 
@@ -29,6 +72,25 @@ export function Home() {
           </TouchableOpacity>
 
        </View>
+
+       <FlatList 
+          data={feedItems}
+          renderItem={ ({item} ) => <FeedItem data={item} currentVisibleItem={showItem} /> }
+          onViewableItemsChanged={onViewRef.current }
+          snapToAlignment={'center'}
+          snapToInterval={heightScreen - 50}
+          scrollEventThrottle={200}
+          decelerationRate={'fast'}
+          viewabilityConfig={{
+            waitForInteraction: false,
+            viewAreaCoveragePercentThreshold: 100,
+
+            // o viewAreaCoveragePercentThreshold serve para que o meu item seja considerado visivel quando ele estiver 100% visivel na tela
+            // o waitForInteraction serve para que o meu item seja considerado visivel quando ele estiver 100% visivel na tela
+          }}
+          showVerticalScrollIndicator={false}
+        />
+        
 
     </View>
   )
